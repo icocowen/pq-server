@@ -1,0 +1,87 @@
+spring:
+  datasource:
+    username: root
+    password: root
+    url: 'jdbc:mysql://localhost:3306/pq_chat?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&useSSL=false'
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    platform: mysql
+    druid:
+      initial-size: 8
+      min-idle: 1
+      max-active: 20
+      max-wait: 60000
+      time-between-eviction-runsMillis: 60000
+      min-evictable-idle-timeMillis: 300000
+  redis:
+    database: 0
+    host: localhost
+    port: 6379
+    jedis:
+      pool:
+        max-active: 8
+  mail: #vniofbqrjfjegbfd
+    host: smtp.qq.com
+    username: byjw@foxmail.com
+    password: vniofbqrjfjegbfd
+    default-encoding: UTF-8
+    properties:
+      mail:
+#        debug: true
+        smtp:
+          socketFactoryClass: javax.net.ssl.SSLSocketFactory
+
+#指定mapper.xml路径
+#mybatis:
+#  mapper-locations:
+#    - classpath:dao/*.xml
+#    - classpath*:com/**/dao/*.xml
+
+
+jwt:
+  tokenHeader: Authorization #JWT存储的请求头
+  secret: pq-chat-secret #JWT加解密使用的密钥
+  expiration: 604800 #JWT的超期限时间(60*60*24*7)
+  tokenHead: Bearer  #JWT负载中拿到开头
+
+# 配置不需要token的url
+exclude:
+  paths:
+    - /api/user/login
+    - /api/user/register
+    - /api/swagger-ui
+    - /api/user/verify/code
+    - /api/user/forget/password
+    - /api/user/verify/code/forget
+
+server:
+  servlet:
+    context-path: /api
+
+secure:
+  password:
+    salt: pq-iwen-good-job
+
+## redis前缀
+pqchat:
+  not-group-chat-prefix: not-group-chat
+  group-chat-prefix: group-chat
+  chat-time-list-prefix: chat-time-list-predix
+  chat-group-members: chat-group-members
+  apply-friend: apply-friend-prefix
+
+# 验证码相关
+verify:
+  code:
+    subject: 皮球注册验证码
+    subject-for-forget: 皮球找回密码验证码
+    prefix: pq-verify-code-prefix
+    text: |
+      您好: {toMail}!
+        欢迎注册皮球，请将验证码填写到注册框。
+        验证码: {verifyCode}
+        有效期: 5分钟
+    forget-password-text: |
+      您好: {toMail}!
+        找回密码的验证码: {verifyCode}
+        有效期: 5分钟
