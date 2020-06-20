@@ -20,10 +20,10 @@ spring:
     jedis:
       pool:
         max-active: 8
-  mail: #vniofbqrjfjegbfd
+  mail: 
     host: smtp.qq.com
     username: byjw@foxmail.com
-    password: vniofbqrjfjegbfd
+    password: qq SMTP码
     default-encoding: UTF-8
     properties:
       mail:
